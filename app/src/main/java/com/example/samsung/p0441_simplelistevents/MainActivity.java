@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -42,6 +43,23 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 Log.d(LOG_TAG, "itemSelect: nothing");
+            }
+        });
+        //устанавливаем на список слушатель его прокрутки
+        lvMain.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                Log.d(LOG_TAG, "scrollState = " + scrollState
+                        + (scrollState == 0 ? " - список закончил прокрутку" :
+                           scrollState == 1 ? " - список начал прокрутку" :
+                                              " - список \"катнули\" и прокрутка дальше идёт \"по инерции\""));
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                Log.d(LOG_TAG, "scroll: firstVisibleItem = " + firstVisibleItem
+                        + ", visibleItemCount = " + visibleItemCount
+                        + ", totalItemCount = " + totalItemCount);
             }
         });
     }
